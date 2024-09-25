@@ -1,0 +1,18 @@
+---
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ mediawiki_service_name }}'
+    consul_services:
+      - id:   '{{ mediawiki_service_name }}'
+        name: '{{ mediawiki_service_name }}'
+        port: '{{ mediawiki_app_cont_port }}'
+        address: '{{ ansible_local.wireguard.address }}'
+        tags: ['ssl-proxy-backend', 'site', 'mediawiki']
+        meta:
+          proxy_fqdn: '{{ mediawiki_domain | mandatory }}'
+        checks:
+          - id: '{{ mediawiki_service_name }}-health'
+            name: 'MediaWiki Healthcheck'
+            type: 'http'
+            http: 'http://localhost:{{ mediawiki_app_cont_port }}/FAQ'

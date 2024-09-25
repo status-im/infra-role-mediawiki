@@ -1,0 +1,42 @@
+---
+- name: 'Load extensions list'
+  include_vars:
+    file: 'extensions.yml'
+
+- name: 'Download extensions'
+  with_items: '{{ mediawiki_extensions }}'
+  loop_control:
+    label: '{{ item.name }}'
+  get_url:
+    url:  '{{ item.url }}'
+    dest: '{{ mediawiki_extensions_path }}'
+    checksum: 'sha256:{{ item.sha256 }}'
+
+- name: 'Unpack extensions'
+  with_items: '{{ mediawiki_extensions }}'
+  loop_control:
+    label: '{{ item.name }}'
+  unarchive: 
+    src:   '{{ mediawiki_extensions_path }}/{{ item.url | basename }}'
+    dest:  '{{ mediawiki_extensions_path }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0755
+    remote_src: true
+
+- name: 'Remove extension tarballs'
+  with_items: '{{ mediawiki_extensions }}'
+  loop_control:
+    label: '{{ item.name }}'
+  file:
+    path:   '{{ mediawiki_extensions_path }}/{{ item.url | basename }}'
+    state:  'absent'
+
+# HACK-FIX: Extensions expect to be in the same folder as the app.
+# https://github.com/bitnami/containers/issues/48162
+- name: 'Symlink maintenance folder'
+  file:
+    src:   '/opt/bitnami/mediawiki/maintenance'
+    dest:  '{{ mediawiki_app_cont_vol }}/maintenance'
+    state: 'link'
+    force: true

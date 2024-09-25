@@ -1,0 +1,45 @@
+---
+version: '3.7'
+services:
+  app:
+    container_name: '{{ mediawiki_app_cont_name }}'
+    image: '{{ mediawiki_app_cont_image }}'
+    restart: 'always'
+    env_file:
+      - '{{ mediawiki_service_path }}/app.env'
+{# For DB bootstrap to work volumes cannot be mounted at first start. #}
+{% if mediawiki_config_file_stat.stat.exists %}
+    volumes:
+      - '{{ mediawiki_app_cont_vol }}:/bitnami/mediawiki'
+{% endif %}
+    ports:
+      - '0.0.0.0:{{ mediawiki_app_cont_port }}:{{ mediawiki_app_cont_port }}/tcp'
+    depends_on:
+      - 'db'
+    healthcheck:
+      test: ['CMD', '/bitnami/mediawiki/healthcheck.sh']
+      interval: 60s
+      timeout:  10s
+      retries:  5
+
+  db:
+    container_name: '{{ mediawiki_db_cont_name }}'
+    image: '{{ mediawiki_db_cont_image }}'
+    restart: 'always'
+    user: 'mysql'
+    env_file:
+      - '{{ mediawiki_service_path }}/db.env'
+    ports:
+      - '127.0.0.1:{{ mediawiki_db_cont_port }}:{{ mediawiki_db_cont_port }}/tcp'
+    tmpfs:
+      - '/tmp'
+    volumes:
+      - '{{ mediawiki_db_cont_vol }}/data:/var/lib/mysql:rw'
+      - '{{ mediawiki_db_cont_vol }}/backup:/backup:rw'
+    command: |
+      --performance-schema=OFF
+    healthcheck:
+      test: ['CMD', 'mysqladmin' ,'ping', '-h', 'localhost']
+      interval: 60s
+      timeout:  10s
+      retries:  5

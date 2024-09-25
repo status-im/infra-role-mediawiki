@@ -1,0 +1,35 @@
+---
+mediawiki_extensions_url: 'https://extdist.wmflabs.org/dist/extensions'
+mediawiki_extensions:
+  - name: 'ExtJSBase'
+    url: '{{ mediawiki_extensions_url }}/ExtJSBase-REL1_40-f9709ec.tar.gz'
+    sha256: '51e7ac7f54106644809be66232f6be0409b88c2a7c4dd76670d4a3c4b87576a5'
+
+  - name: 'OOJSPlus'
+    url: '{{ mediawiki_extensions_url }}/OOJSPlus-master-d150154.tar.gz'
+    sha256: '298df68031a00537fe906a387d65135cf9cdd8cc99b85b81504d207f7fd8e8b8'
+
+  - name: 'BlueSpiceFoundation'
+    url: '{{ mediawiki_extensions_url }}/BlueSpiceFoundation-REL1_40-5cb388e.tar.gz'
+    sha256: '5384ed88189958b5b62bad4d628d78e6cad12c90470eaba3a5ed7e3b4d041315'
+
+  - name: 'BlueSpiceUserManager'
+    url: '{{ mediawiki_extensions_url }}/BlueSpiceGroupManager-REL1_40-7be30d9.tar.gz'
+    sha256: 'bc2b68096a02c8dbf27bb396f2b29363a47bd6b7ce09c37dde91d4cda87e427e'
+
+  - name: 'BlueSpiceGroupManager'
+    url: '{{ mediawiki_extensions_url }}/BlueSpiceUserManager-master-3a800c4.tar.gz'
+    sha256: '5eec1a8a3ffb893a694b2c3960b35186d32ca836841b9b0bd54f9972e316e54a'
+
+  - name: 'UserGroups'
+    url: '{{ mediawiki_extensions_url }}/UserGroups-REL1_40-37636b4.tar.gz'
+    sha256: '2cde8c6c4d4f8a8e9406fcd9c1ddaaed6d73fa9e1df59a3887705dd4873ec7ea'
+
+  - name: 'CheckUser'
+    url: '{{ mediawiki_extensions_url }}/CheckUser-REL1_40-8965b30.tar.gz'
+    sha256: '6b25f5fd57af03c068bd2690d3e383275ab199239bc77050b74f47b073a7fee4'
+
+  - name: 'OATHAuth'
+    url: '{{ mediawiki_extensions_url }}/OATHAuth-REL1_40-32e1429.tar.gz'
+    sha256: '9b590a79e98dbcd307e329f151677cf569805e7ee0b08366b5c9c7b0af491973'
+

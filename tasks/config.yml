@@ -1,0 +1,16 @@
+---
+- name: 'Wait for the app to start'
+  wait_for:
+    port: '{{ mediawiki_app_cont_port }}'
+    delay: 5
+
+# This file is created by install.php script at first start.
+# We re-create it because we want control over its contents.
+- name: 'Template MediaWiki config'
+  register: mediawiki_config_file
+  template:
+    src:   'LocalSettings.php.j2'
+    dest:  '{{ mediawiki_settings_path }}'
+    owner: 'dockremap'
+    group: 'dockremap'
+    mode:  0644

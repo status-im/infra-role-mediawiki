@@ -1,0 +1,9 @@
+server {
+  listen {{ mediawiki_proxy_port }};
+  
+  location {
+    fastcgi_pass http://localhost:{{ mediawiki_app_cont_port }}/;
+    fastcgi_index index.php;
+    include fastcgi_params;
+  }
+}

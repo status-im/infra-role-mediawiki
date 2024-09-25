@@ -1,0 +1,10 @@
+---
+- include_tasks: init.yml
+- include_tasks: scripts.yml
+- include_tasks: docker.yml
+- include_tasks: extensions.yml
+- include_tasks: config.yml
+- include_tasks: docker.yml
+  when: mediawiki_config_file.changed
+- include_tasks: backup.yml
+- include_tasks: consul.yml

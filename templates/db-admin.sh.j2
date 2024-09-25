@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# vim: set ft=sh:
+set -Eeo pipefail
+exec mysql --defaults-file="{{ mediawiki_service_path }}/.my.cnf" --silent "${@}"

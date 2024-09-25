@@ -1,0 +1,22 @@
+---
+- name: 'Create timer for MySQL backup'
+  include_role: name=systemd-timer
+  vars:
+    systemd_timer_description: 'Dump MediaWiki MySQL database.'
+    systemd_timer_name:        '{{ mediawiki_db_backup_service_name }}'
+    systemd_timer_user:        '{{ mediawiki_db_backup_user }}'
+    systemd_timer_frequency:   '{{ mediawiki_db_backup_frequency }}'
+    systemd_timer_timeout_sec: '{{ mediawiki_db_backup_timeout }}'
+    systemd_timer_after_extra: 'docker.service'
+    systemd_timer_start_on_creation: false
+    systemd_timer_script_content: |
+      #!/usr/bin/env bash
+      BKP_PATH='{{ mediawiki_db_cont_vol }}/backup/{{ mediawiki_db_name }}.sql'
+      /usr/bin/docker exec -i {{ mediawiki_db_cont_name }} \
+        mysqldump \
+          -u {{ mediawiki_db_user }} \
+          --password='{{ mediawiki_db_pass }}' \
+          {{ mediawiki_db_name }} \
+          > "${BKP_PATH}"
+      chgrp dockremap "${BKP_PATH}"
+      chmod 0640 "${BKP_PATH}"

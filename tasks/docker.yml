@@ -1,0 +1,24 @@
+---
+- name: Check if configuration file exists
+  register: mediawiki_config_file_stat
+  stat:
+    path: '{{ mediawiki_settings_path }}'
+
+- name: 'Create compose file'
+  template:
+    src:   'docker-compose.yml.j2'
+    dest:  '{{ mediawiki_service_path }}/docker-compose.yml'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644
+
+- name: 'Create containers'
+  docker_compose:
+    project_src: '{{ mediawiki_service_path }}'
+    pull:        true
+    state:       '{{ compose_state }}'
+    restarted:   '{{ compose_restart }}'
+    recreate: |-
+      {{ (mediawiki_skin_repo.changed
+       or (mediawiki_config_file is defined and mediawiki_config_file.changed))
+       | ternary("always", compose_recreate) }}

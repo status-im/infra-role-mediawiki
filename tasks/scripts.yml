@@ -1,0 +1,28 @@
+---
+- name: 'Instal MySQL client'
+  apt:
+    name: 'mysql-client'
+
+- name: 'Template database client config'
+  template:
+    src:   'my.cnf.j2'
+    dest:  '{{ mediawiki_service_path }}/.my.cnf'
+    owner: 'root'
+    group: 'admin'
+    mode:  0640
+
+- name: 'Template database admin script'
+  template:
+    src:   'db-admin.sh.j2'
+    dest:  '{{ mediawiki_service_path }}/db-admin.sh'
+    owner: 'root'
+    group: 'admin'
+    mode:  0750
+
+- name: 'Template app healthcheck script'
+  template:
+    src:   'healthcheck.sh.j2'
+    dest:  '{{ mediawiki_app_cont_vol }}/healthcheck.sh'
+    owner: 'dockremap'
+    group: 'admin'
+    mode:  0755

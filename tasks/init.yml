@@ -1,0 +1,38 @@
+---
+- name: 'Create data folder'
+  file:
+    dest:  '{{ item.path }}'
+    owner: '{{ item.get("owner", "dockremap") }}'
+    group: 'docker'
+    state: 'directory'
+    mode:  0775
+    recurse: true
+  with_items:
+    - { path: '{{ mediawiki_service_path }}'        }
+    - { path: '{{ mediawiki_app_cont_vol }}'        }
+    - { path: '{{ mediawiki_app_cont_vol }}/images', owner: '{{ mediawiki_app_host_uid }}' }
+    - { path: '{{ mediawiki_extensions_path }}',     owner: '{{ mediawiki_app_host_uid }}' }
+    - { path: '{{ mediawiki_db_cont_vol }}/data',    owner: '{{ mediawiki_db_host_uid }}' }
+    - { path: '{{ mediawiki_db_cont_vol }}/backup',  owner: '{{ mediawiki_db_host_uid }}' }
+
+- name: 'Template container env files'
+  template:
+    src:   '{{ item }}.j2'
+    dest:  '{{ mediawiki_service_path }}/{{ item }}'
+    owner: 'dockremap'
+    group: 'dockremap'
+    mode:  0644
+  with_items:
+    - 'db.env'
+    - 'app.env'
+
+# WARNING: This is not a normal skin repo, it's a monorepo.
+- name: 'Clone skin repository'
+  register: mediawiki_skin_repo
+  when: mediawiki_skin_repo_url is defined
+  become_user: 'dockremap'
+  git:
+    repo:    '{{ mediawiki_skin_repo_url | mandatory }}'
+    dest:    '{{ mediawiki_skin_repo_path }}'
+    version: '{{ mediawiki_skin_repo_rev }}'
+    force: true

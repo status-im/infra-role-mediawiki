@@ -1,0 +1,61 @@
+---
+mediawiki_service_name: 'mediawiki'
+mediawiki_service_path: '/docker/{{ mediawiki_service_name }}'
+mediawiki_compose_file: '/docker/{{ mediawiki_service_name }}'
+mediawiki_settings_path: '{{ mediawiki_app_cont_vol }}/LocalSettings.php'
+
+# Settings
+#mediawiki_domain: 'wiki.example.org'
+#mediawiki_sitename: 'Example Wiki'
+mediawiki_email: 'noreply@example.org'
+mediawiki_default_skin: 'vector-2022'
+mediawiki_debug: false
+# Secrets
+#mediawiki_secret_key: 'super-secret-key'
+#mediawiki_upgrade_key: 'super-secret-key'
+# Admin User
+mediawiki_admin_username: 'admin'
+#mediawiki_admin_password: 'super-secret-password'
+# Customizations
+#mediawiki_skin_repo_url: ~
+mediawiki_skin_repo_path: '{{ mediawiki_app_cont_vol }}/skins'
+# Extensions, list is loaded from vars.
+mediawiki_extensions_path: '{{ mediawiki_app_cont_vol }}/extensions'
+# Trusted proxy IPs
+mediawiki_trusted_proxies: ['172.17.0.0/16']
+# SMTP Configuration
+mediawiki_smtp_enabled: false
+#mediawiki_smtp_host: ~
+#mediawiki_smtp_port: ~
+#mediawiki_smtp_user: ~
+#mediawiki_smtp_password: ~
+
+# Containers - App
+mediawiki_app_cont_name: '{{ mediawiki_service_name }}-app'
+mediawiki_app_cont_vol: '{{ mediawiki_service_path }}/app'
+mediawiki_app_cont_tag: '1.40.0'
+mediawiki_app_cont_image: 'bitnami/mediawiki:{{ mediawiki_app_cont_tag }}'
+mediawiki_app_cont_port: 8080
+mediawiki_app_cont_uid: 1001
+mediawiki_app_host_uid: '{{ 100000 + mediawiki_app_cont_uid | int }}'
+# Containers - DB
+mediawiki_db_cont_name: '{{ mediawiki_service_name }}-db'
+mediawiki_db_cont_vol: '{{ mediawiki_service_path }}/db'
+mediawiki_db_cont_tag: '8.1.0'
+mediawiki_db_cont_image: 'mysql:{{ mediawiki_db_cont_tag }}'
+mediawiki_db_cont_port: 3306
+mediawiki_db_cont_uid: 999
+mediawiki_db_host_uid: '{{ 100000 + mediawiki_db_cont_uid | int }}'
+mediawiki_db_name: 'mediawiki'
+mediawiki_db_user: 'mediawiki'
+mediawiki_db_pass: 'changeIfYouCare'
+# Backup
+mediawiki_db_backup_service_name: 'dump-{{ mediawiki_service_name }}-db'
+mediawiki_db_backup_user: 'root'
+mediawiki_db_backup_frequency: 'daily'
+mediawiki_db_backup_timeout: 600
+
+# general container management
+compose_recreate: 'smart'
+compose_state: 'present'
+compose_restart: false
