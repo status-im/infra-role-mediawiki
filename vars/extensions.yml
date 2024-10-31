@@ -2,34 +2,33 @@
 mediawiki_extensions_url: 'https://extdist.wmflabs.org/dist/extensions'
 mediawiki_extensions:
   - name: 'ExtJSBase'
-    url: '{{ mediawiki_extensions_url }}/ExtJSBase-REL1_40-f9709ec.tar.gz'
-    sha256: '51e7ac7f54106644809be66232f6be0409b88c2a7c4dd76670d4a3c4b87576a5'
+    url: '{{ mediawiki_extensions_url }}/ExtJSBase-REL1_40-033efb7.tar.gz'
+    sha256: '1abc9e57bdd7b30ff13541b072b377dc3df7623d045d95a7077bf947b2f2451b'
 
   - name: 'OOJSPlus'
-    url: '{{ mediawiki_extensions_url }}/OOJSPlus-master-d150154.tar.gz'
-    sha256: '298df68031a00537fe906a387d65135cf9cdd8cc99b85b81504d207f7fd8e8b8'
+    url: '{{ mediawiki_extensions_url }}/OOJSPlus-master-effaf1c.tar.gz'
+    sha256: '1679dcc18f79cfdbf9cc6e019d50a70b6a0a6d9ac39b901e0b6d1b9001234488'
 
   - name: 'BlueSpiceFoundation'
-    url: '{{ mediawiki_extensions_url }}/BlueSpiceFoundation-REL1_40-5cb388e.tar.gz'
-    sha256: '5384ed88189958b5b62bad4d628d78e6cad12c90470eaba3a5ed7e3b4d041315'
+    url: '{{ mediawiki_extensions_url }}/BlueSpiceFoundation-REL1_40-96e6bdb.tar.gz'
+    sha256: '395325fb2d06cb99ff84022df9844fe0cdc895e2718125b5cc0f82278ceaa935'
 
   - name: 'BlueSpiceUserManager'
-    url: '{{ mediawiki_extensions_url }}/BlueSpiceGroupManager-REL1_40-7be30d9.tar.gz'
-    sha256: 'bc2b68096a02c8dbf27bb396f2b29363a47bd6b7ce09c37dde91d4cda87e427e'
+    url: '{{ mediawiki_extensions_url }}/BlueSpiceUserManager-REL1_40-a71c7c6.tar.gz'
+    sha256: '9e5cccbdf526696feb870fc2dd9650edbbb76773b4af3ca7ef862caa895621a4'
 
   - name: 'BlueSpiceGroupManager'
-    url: '{{ mediawiki_extensions_url }}/BlueSpiceUserManager-master-3a800c4.tar.gz'
-    sha256: '5eec1a8a3ffb893a694b2c3960b35186d32ca836841b9b0bd54f9972e316e54a'
+    url: '{{ mediawiki_extensions_url }}/BlueSpiceGroupManager-REL1_40-6effe39.tar.gz'
+    sha256: '145f3f43f27836109bbb25dc6f3b08f163a0f408c57778e9e42743f41ca97a04'
 
   - name: 'UserGroups'
-    url: '{{ mediawiki_extensions_url }}/UserGroups-REL1_40-37636b4.tar.gz'
-    sha256: '2cde8c6c4d4f8a8e9406fcd9c1ddaaed6d73fa9e1df59a3887705dd4873ec7ea'
+    url: '{{ mediawiki_extensions_url }}/UserGroups-REL1_40-81e6d47.tar.gz'
+    sha256: 'b3df0f85eefa17b3fa445da752ae15ade7d86e020d65af46199ec01468fae587'
 
   - name: 'CheckUser'
-    url: '{{ mediawiki_extensions_url }}/CheckUser-REL1_40-8965b30.tar.gz'
-    sha256: '6b25f5fd57af03c068bd2690d3e383275ab199239bc77050b74f47b073a7fee4'
+    url: '{{ mediawiki_extensions_url }}/CheckUser-REL1_40-5513e7d.tar.gz'
+    sha256: 'b3f2c34e3bce9efaf24900f5017a854ccc798aa24b8fc980fd6970511039c950'
 
   - name: 'OATHAuth'
-    url: '{{ mediawiki_extensions_url }}/OATHAuth-REL1_40-32e1429.tar.gz'
-    sha256: '9b590a79e98dbcd307e329f151677cf569805e7ee0b08366b5c9c7b0af491973'
-
+    url: '{{ mediawiki_extensions_url }}/OATHAuth-REL1_40-e94400b.tar.gz'
+    sha256: '55b2ed47986809339845f7ff3403f9df350d5c3d9099dfb6423d219161d15d5c'
