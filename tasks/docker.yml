@@ -13,11 +13,10 @@
     mode:  0644
 
 - name: 'Create containers'
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ mediawiki_service_path }}'
-    pull:        true
     state:       '{{ compose_state }}'
-    restarted:   '{{ compose_restart }}'
+    pull:        '{{ compose_pull }}'
     recreate: |-
       {{ (mediawiki_skin_repo.changed
        or (mediawiki_config_file is defined and mediawiki_config_file.changed))

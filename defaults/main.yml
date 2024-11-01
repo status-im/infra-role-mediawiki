@@ -56,6 +56,6 @@ mediawiki_db_backup_frequency: 'daily'
 mediawiki_db_backup_timeout: 600
 
 # general container management
-compose_recreate: 'smart'
+compose_recreate: 'auto'
 compose_state: 'present'
-compose_restart: false
+compose_pull: 'always'
