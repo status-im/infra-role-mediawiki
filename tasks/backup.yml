@@ -11,14 +11,12 @@
     systemd_timer_start_on_creation: false
     systemd_timer_script_content: |
       #!/usr/bin/env bash
-      set -euo pipefail
-      BKP_PATH='{{ mediawiki_db_cont_vol }}/backup/{{ mediawiki_db_name }}.sql'
-      exec /usr/bin/docker exec -i \
+      exec docker exec -i \
+        -u {{ mediawiki_db_cont_uid }} \
         -e MYSQL_PWD='{{ mediawiki_db_pass }}' \
         {{ mediawiki_db_cont_name }} \
         mysqldump --verbose \
-          --user=root \
+          -u 'root' \
+          --password="{{ mediawiki_db_pass | mandatory }}" \
           {{ mediawiki_db_name }} \
-          > "${BKP_PATH}"
-      chgrp dockremap "${BKP_PATH}"
-      chmod 0640 "${BKP_PATH}"
+          --result-file=/backup/{{ datahub_db_name }}.sql
